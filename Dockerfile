@@ -10,6 +10,8 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 8080
+ARG PORT=8000
+ENV PORT_NUMBER=${PORT}
+EXPOSE ${PORT}
 
-CMD [ "npm", "run", "dev" ]
+CMD [ "npm", "start" ]
