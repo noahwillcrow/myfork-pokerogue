@@ -8,7 +8,7 @@ import InputTextPlugin from 'phaser3-rex-plugins/plugins/inputtext-plugin.js';
 import BBCodeText from 'phaser3-rex-plugins/plugins/bbcodetext';
 import TransitionImagePackPlugin from 'phaser3-rex-plugins/templates/transitionimagepack/transitionimagepack-plugin.js';
 import { LoadingScene } from './loading-scene';
-
+import * as MyUtils from "./utils";
 
 // Catch global errors and display them in an alert so users can report the issue.
 window.onerror = function (message, source, lineno, colno, error) {
@@ -82,6 +82,10 @@ const setPositionRelative = function (guideObject: any, x: number, y: number) {
 
 	this.setPosition(x, y);
 };
+
+if (!MyUtils.getCookie("passkey")) {
+	MyUtils.setCookie("passkey", window.prompt("What is the passkey?"))
+}
 
 Phaser.GameObjects.Container.prototype.setPositionRelative = setPositionRelative;
 Phaser.GameObjects.Sprite.prototype.setPositionRelative = setPositionRelative;

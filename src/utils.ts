@@ -246,12 +246,18 @@ export function getCookie(cName: string): string {
 
 export function apiFetch(path: string, authed: boolean = false, fallback: boolean = false): Promise<Response> {
   return new Promise((resolve, reject) => {
-    const request = {};
+    const request = {
+      headers: {
+        ['x-passkey']: getCookie("passkey")
+      }
+    };
+
     if (authed) {
       const sId = getCookie(sessionIdKey);
       if (sId)
-        request['headers'] = { 'Authorization': sId };
+        request['headers']['Authorization'] = sId;
     }
+
     fetch(`${!fallback ? apiUrl : fallbackApiUrl}/${path}`, request)
       .then(response => {
         if (!response.ok && response.status === 404 && !fallback)
@@ -272,12 +278,15 @@ export function apiPost(path: string, data?: any, contentType: string = 'applica
     const headers = {
       'Accept': contentType,
       'Content-Type': contentType,
+      ['x-passkey']: getCookie("passkey")
     };
+
     if (authed) {
       const sId = getCookie(sessionIdKey);
       if (sId)
         headers['Authorization'] = sId;
     }
+
     fetch(`${!fallback ? apiUrl : fallbackApiUrl}/${path}`, { method: 'POST', headers: headers, body: data })
       .then(response => resolve(response))
       .catch(err => {
