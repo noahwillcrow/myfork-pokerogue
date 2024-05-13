@@ -83,7 +83,7 @@ const setPositionRelative = function (guideObject: any, x: number, y: number) {
 	this.setPosition(x, y);
 };
 
-if (!MyUtils.getCookie("passkey")) {
+if (!MyUtils.isLocal && !MyUtils.getCookie("passkey")) {
 	MyUtils.setCookie("passkey", window.prompt("What is the passkey?"))
 }
 
