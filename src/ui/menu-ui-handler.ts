@@ -151,16 +151,14 @@ export default class MenuUiHandler extends MessageUiHandler {
       },
       keepOpen: true
     });
-    if (Utils.isLocal) {
-      manageDataOptions.push({
-        label: i18next.t("menuUiHandler:importData"),
-        handler: () => {
-          this.scene.gameData.importData(GameDataType.SYSTEM);
-          return true;
-        },
-        keepOpen: true
-      });
-    }
+    manageDataOptions.push({
+      label: i18next.t("menuUiHandler:importData"),
+      handler: () => {
+        this.scene.gameData.importData(GameDataType.SYSTEM);
+        return true;
+      },
+      keepOpen: true
+    });
     manageDataOptions.push(
       {
         label: i18next.t("menuUiHandler:exportData"),
